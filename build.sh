@@ -14,7 +14,7 @@ wget https://download.geofabrik.de/europe/british-isles-latest.osm.pbf
 checksum 1497fd293ad2a70c257b7d78cf7e4683
 
 osm2pgsql --create --slim \
-    --cache 1000 --number-processes 2 --hstore \
+    --cache 1000 --number-processes 2 --hstore-all \
     --style openstreetmap-carto-master/openstreetmap-carto.style --multi-geometry \
     -d osmuk british-isles-latest.osm.pbf
 
