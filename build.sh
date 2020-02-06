@@ -18,49 +18,49 @@ osm2pgsql --create --slim \
     -d osmuk british-isles-latest.osm.pbf
 
 # Some indexes to speed things up
-CREATE INDEX planet_osm_point_amenity
+psql -d osmuk -c "CREATE INDEX planet_osm_point_amenity
     ON public.planet_osm_point USING btree
     (amenity ASC NULLS LAST)
     INCLUDE(amenity)
-    TABLESPACE pg_default;
+    TABLESPACE pg_default;"
 
-CREATE INDEX planet_osm_point_shop
+psql -d osmuk -c "CREATE INDEX planet_osm_point_shop
     ON public.planet_osm_point USING btree
     (shop ASC NULLS LAST)
-    TABLESPACE pg_default;
+    TABLESPACE pg_default;"
 
-CREATE INDEX planet_osm_polygon_amenity
+psql -d osmuk -c "CREATE INDEX planet_osm_polygon_amenity
     ON public.planet_osm_polygon USING btree
     (amenity ASC NULLS LAST)
-    TABLESPACE pg_default;
+    TABLESPACE pg_default;"
 
-CREATE INDEX planet_osm_polygon_shop
+psql -d osmuk -c "CREATE INDEX planet_osm_polygon_shop
     ON public.planet_osm_polygon USING btree
     (shop ASC NULLS LAST)
-    TABLESPACE pg_default;
+    TABLESPACE pg_default;"
 
-CREATE INDEX planet_osm_point_name
+psql -d osmuk -c "CREATE INDEX planet_osm_point_name
     ON public.planet_osm_point USING btree
     (name text_pattern_ops ASC NULLS LAST)
-    TABLESPACE pg_default;
+    TABLESPACE pg_default;"
 
-CREATE INDEX planet_osm_polygon_name
+psql -d osmuk -c "CREATE INDEX planet_osm_polygon_name
     ON public.planet_osm_polygon USING btree
     (name text_pattern_ops ASC NULLS LAST)
-    TABLESPACE pg_default;
+    TABLESPACE pg_default;"
 
-CREATE INDEX planet_osm_point_geom
+psql -d osmuk -c "CREATE INDEX planet_osm_point_geom
     ON public.planet_osm_point USING gist
     (way)
-    TABLESPACE pg_default;
+    TABLESPACE pg_default;"
 
-CREATE INDEX planet_osm_polygon_geom
+psql -d osmuk -c "CREATE INDEX planet_osm_polygon_geom
     ON public.planet_osm_polygon USING gist
     (way)
-    TABLESPACE pg_default;
+    TABLESPACE pg_default;"
 
 # SQL to remove Eire
-DELETE
+psql -d osmuk -c "DELETE
 FROM public.planet_osm_point
 WHERE osm_id in
 (
@@ -68,9 +68,9 @@ WHERE osm_id in
 	FROM public.planet_osm_point osm
 	JOIN public.planet_osm_polygon eire on eire.osm_id='-62273'
 	WHERE st_within(osm.way, eire.way)
-);
+);"
 
-DELETE
+psql -d osmuk -c "DELETE
 FROM public.planet_osm_polygon
 WHERE osm_id in
 (
@@ -78,6 +78,6 @@ WHERE osm_id in
 	FROM public.planet_osm_polygon osm
 	JOIN public.planet_osm_polygon eire on eire.osm_id='-62273'
 	WHERE st_within(osm.way, eire.way)
-);
+);"
 
 # How do we add in British Overseas Territories? https://www.openstreetmap.org/relation/3969434
