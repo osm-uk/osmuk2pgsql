@@ -22,3 +22,15 @@ I like to reply,
 The first version is a bash shell script. As a prerequisite it requires postgresl, postgis, hstore, osm2pgsql, and wget to be installed. The script could install stuff for you but it gets complicated coping with Linux, Windows, Mac OS X, etc.
 
 Second version will most likely use Docker.
+
+## alternatives
+OSM data can be explored quite quickly using country-specific Taginfo pages from Geofabrik:
+
+http://taginfo.geofabrik.de/europe/great-britain/
+http://taginfo.geofabrik.de/europe/great-britain/england/
+http://taginfo.geofabrik.de/europe/great-britain/england/greater-manchester/
+etc.
+http://taginfo.geofabrik.de/europe/great-britain/scotland/
+http://taginfo.geofabrik.de/europe/great-britain/wales/
+
+https://overpass-turbo.eu/ allows for more complicated queries but can become overloaded if you ask for the whole country
