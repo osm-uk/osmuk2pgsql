@@ -11,7 +11,7 @@ rm master.zip
 # Geofabrik British Isles includes IoM, Channel Islands,,,and Eire
 # this will take some time.....
 wget https://download.geofabrik.de/europe/british-isles-latest.osm.pbf
-checksum 1497fd293ad2a70c257b7d78cf7e4683
+#checksum 1497fd293ad2a70c257b7d78cf7e4683
 
 osm2pgsql --create --slim \
     --cache 1000 --number-processes 2 --hstore-all \
