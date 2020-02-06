@@ -26,11 +26,11 @@ Second version will most likely use Docker.
 ## alternatives
 OSM data can be explored quite quickly using country-specific Taginfo pages from Geofabrik:
 
-http://taginfo.geofabrik.de/europe/great-britain/
-http://taginfo.geofabrik.de/europe/great-britain/england/
-http://taginfo.geofabrik.de/europe/great-britain/england/greater-manchester/
-etc.
-http://taginfo.geofabrik.de/europe/great-britain/scotland/
-http://taginfo.geofabrik.de/europe/great-britain/wales/
+* http://taginfo.geofabrik.de/europe/great-britain/
+** http://taginfo.geofabrik.de/europe/great-britain/england/
+**** http://taginfo.geofabrik.de/europe/great-britain/england/greater-manchester/
+**** etc.
+** http://taginfo.geofabrik.de/europe/great-britain/scotland/
+** http://taginfo.geofabrik.de/europe/great-britain/wales/
 
 https://overpass-turbo.eu/ allows for more complicated queries but can become overloaded if you ask for the whole country
