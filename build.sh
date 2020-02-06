@@ -5,7 +5,8 @@ psql -d osmuk -c "create extension postgis;"
 psql -d osmuk -c "create extension hstore;"
 
 wget https://github.com/gravitystorm/openstreetmap-carto/archive/master.zip
-unzip master.zip 
+unzip master.zip
+rm master.zip
 
 # Geofabrik British Isles includes IoM, Channel Islands,,,and Eire
 # this will take some time.....
@@ -14,7 +15,7 @@ checksum 1497fd293ad2a70c257b7d78cf7e4683
 
 osm2pgsql --create --slim \
     --cache 1000 --number-processes 2 --hstore \
-    --style openstreetmap-carto/openstreetmap-carto.style --multi-geometry \
+    --style openstreetmap-carto-master/openstreetmap-carto.style --multi-geometry \
     -d osmuk british-isles-latest.osm.pbf
 
 # Some indexes to speed things up
