@@ -35,6 +35,30 @@ OSM data can be explored quite quickly using country-specific Taginfo pages from
 
 https://overpass-turbo.eu/ allows for more complicated queries but can become overloaded if you ask for the whole country
 
+## database structure
+Hopefully, you know a little about how raw OSM data is structured using nodes, ways, relations, and key-value pairs of tags. If this were loaded into a relational database it would not be a very queryable table structure, as much of the data is stuffed into a single 'tags' column. You can select tags->'wikidata' but the query will be slow.
+
+e.g.
+osm_id: 13893359
+tags: ""train"=>"yes", "network"=>"National Rail", "ref:crs"=>"CTF", "wikidata"=>"Q2401174", "wikipedia"=>"en:Catford railway station", "source_ref"=>"http://en.wikipedia.org/wiki/List_of_London_railway_stations", "wheelchair"=>"no", "naptan:AtcoCode"=>"9100CATFORD", "public_transport"=>"station""
+way (geometry): "0101000020110F000066F2CB167ABEA6C06ACF65C3418F5941"
+
+When we render a map from the data there are standard tags and values that we are looking for. Running osm2pgql will expand out some of the tags into columns of their own and apply various rules. This makes it far easier to write SQL queries. The tags that are wanted are defined in the openstreetmap-carto-master/openstreetmap-carto.style document.
+
+osm_id: 13893359
+access: nil
+addr:housename: nil
+....
+list of columns
+....
+name: Catford
+railway: station
+....
+list of columns
+....
+tags: ""train"=>"yes", "network"=>"National Rail", "ref:crs"=>"CTF", "wikidata"=>"Q2401174", "wikipedia"=>"en:Catford railway station", "source_ref"=>"http://en.wikipedia.org/wiki/List_of_London_railway_stations", "wheelchair"=>"no", "naptan:AtcoCode"=>"9100CATFORD", "public_transport"=>"station""
+way (geometry): "0101000020110F000066F2CB167ABEA6C06ACF65C3418F5941"
+
 ## Vector tile server
 Based on Paul Ramsey's https://github.com/pramsey/minimal-mvt this is a minimal vector tile server
 
