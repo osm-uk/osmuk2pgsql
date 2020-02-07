@@ -34,3 +34,17 @@ OSM data can be explored quite quickly using country-specific Taginfo pages from
 * http://taginfo.geofabrik.de/europe/great-britain/wales/
 
 https://overpass-turbo.eu/ allows for more complicated queries but can become overloaded if you ask for the whole country
+
+## Vector tile server
+Based on Paul Ramsey's https://github.com/pramsey/minimal-mvt this is a minimal vector tile server
+
+```sh
+virtualenv --python python3 venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+Run with
+```sh
+python3 minimal-mvt.py
+```
