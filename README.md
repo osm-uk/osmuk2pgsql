@@ -39,7 +39,7 @@ https://overpass-turbo.eu/ allows for more complicated queries but can become ov
 Hopefully, you know a little about how raw OSM data is structured using nodes, ways, relations, and key-value pairs of tags. If this were loaded into a relational database it would not be a very queryable table structure, as much of the data is stuffed into the 'tags' column. Yes, you can select tags->'public_transport' but the query will be slow.
 
 e.g.
-* osm_id: 13893359
+* osm_id: [13893359](https://www.openstreetmap.org/node/13893359)
 * tags: ""train"=>"yes", "network"=>"National Rail", "ref:crs"=>"CTF", "wikidata"=>"Q2401174", "wikipedia"=>"en:Catford railway station", "source_ref"=>"http://en.wikipedia.org/wiki/List_of_London_railway_stations", "wheelchair"=>"no", "naptan:AtcoCode"=>"9100CATFORD", "public_transport"=>"station""
 * way (geometry): "0101000020110F000066F2CB167ABEA6C06ACF65C3418F5941"
 
