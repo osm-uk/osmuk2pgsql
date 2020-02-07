@@ -48,3 +48,5 @@ Run with
 ```sh
 python3 minimal-mvt.py
 ```
+
+![Screenshot of Mapbox GL Example](mapbox-gl.png)
