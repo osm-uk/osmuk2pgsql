@@ -81,4 +81,13 @@ WHERE osm_id in
 	WHERE st_within(osm.way, eire.way)
 );"
 
+psql -d osmuk -c "DELETE
+FROM public.planet_osm_roads
+WHERE osm_id in
+(
+	SELECT osm.osm_id
+	FROM public.planet_osm_polygon osm
+	JOIN public.planet_osm_polygon eire on eire.osm_id='-62273'
+	WHERE st_within(osm.way, eire.way)
+);"
 # How do we add in British Overseas Territories? https://www.openstreetmap.org/relation/3969434

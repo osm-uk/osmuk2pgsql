@@ -11,13 +11,13 @@ DATABASE = {
     'database': 'osmgb'
     }
 
-# Table to query for MVT data, and columns to
-# include in the tiles.
+# Table to query
 TABLE = {
     'table':       'planet_osm_roads',
     'srid':        '3857',
     'geomColumn':  'way',
-    'attrColumns': 'osm_id, name, highway'
+    'attrColumns': 'osm_id, name, highway',
+    'conditions':  'AND admin_level>\'2\''
     }
 
 # HTTP server information
@@ -112,6 +112,7 @@ class TileRequestHandler(http.server.BaseHTTPRequestHandler):
                     t.{geomColumn},
                     ST_Transform(bounds.geom, {srid})
                 )
+                {conditions}
             )
             SELECT ST_AsMVT(mvtgeom.*) FROM mvtgeom
         """
