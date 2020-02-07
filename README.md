@@ -43,7 +43,7 @@ e.g.
 * tags: ""train"=>"yes", "network"=>"National Rail", "ref:crs"=>"CTF", "wikidata"=>"Q2401174", "wikipedia"=>"en:Catford railway station", "source_ref"=>"http://en.wikipedia.org/wiki/List_of_London_railway_stations", "wheelchair"=>"no", "naptan:AtcoCode"=>"9100CATFORD", "public_transport"=>"station""
 * way (geometry): "0101000020110F000066F2CB167ABEA6C06ACF65C3418F5941"
 
-When we render a map from the data there are standard tags and values that we are looking for. Running osm2pgql will expand out some of the tags into columns of their own and apply various rules. This makes it far easier to write SQL queries. The tags that are wanted are defined in the openstreetmap-carto-master/openstreetmap-carto.style document.
+When we render a map from the data there are standard tags and values that we are looking for. Running osm2pgsql will expand out some of the tags into columns of their own and apply various rules. This makes it far easier to write SQL queries. The tags that are wanted are defined in the openstreetmap-carto-master/openstreetmap-carto.style document.
 
 * osm_id: 13893359
 * access: nil
