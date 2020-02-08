@@ -1,8 +1,10 @@
 # OSMUK-in-a-box
-Build a postgresql+postgis database of OpenStreetMap for the areas covered by OSMUK (the United Kingdom including Northern Ireland, the Isle of Man and Channel Islands aka the "British Islands"). For use in learning, hackdays, personal projects, professional projects, etc.
+Build a postgresql+postgis database of OpenStreetMap for the areas covered by OSMUK (the United Kingdom including Northern Ireland, the Isle of Man and Channel Islands aka the "British Islands") for use in learning, hackdays, personal projects, professional projects, etc.
 
 ## aim
 A quick and easy way for someone with some technical skills but limited experience of OSM to set up a UK database for hacking with. Self-contained and operating system independent.
+
+A minimal tile server and map view is included to help you get started. Other systems (Mapnik, etc.) may be installed independently and pointed at this database.
 
 ## rationale
 When asked,
@@ -19,12 +21,20 @@ I like to reply,
 > "The wha?...(Thanks, but I probably won't bother)"
 
 ## architecture
-The first version is a bash shell script. As a prerequisite it requires postgresl, postgis, hstore, osm2pgsql, and wget to be installed. The script could install stuff for you but it gets complicated coping with Linux, Windows, Mac OS X, etc.
+Latest stable Postgresql database with Postgis.
+
+Python 3.
+
+Data is from a subset extracted by Geofabrik. Their definition of 'Great Britain' is a rough polygon around the British mainland, the island or Ireland, and the Channel Islands. SQL is included to remove Eire features so that counts, etc. are correct for the OSMUK area. Currently undecided on whether to retain the complete coastline of Ireland.
+
+A minimal vector tile server and example Mapbox GL map.
+
+The first version is a bash shell script. As a prerequisite it requires postgresl, postgis, hstore, osm2pgsql, wget and unzip to be installed. The script could install stuff for you but it gets complicated coping with Linux, Windows, Mac OS X, etc.
 
 Second version will most likely use Docker.
 
 ## alternatives
-OSM data can be explored quite quickly using country-specific Taginfo pages from Geofabrik:
+Explore OSM data quickly using country-specific Taginfo pages from Geofabrik:
 
 * http://taginfo.geofabrik.de/europe/great-britain/
 * http://taginfo.geofabrik.de/europe/great-britain/england/
@@ -73,4 +83,4 @@ Run with
 python3 minimal-mvt.py
 ```
 
-![Screenshot of Mapbox GL Example](mapbox-gl.png)
+![Screenshot of Mapbox GL Example](mapbox-gl.png){:height="50%" width="50%"}
