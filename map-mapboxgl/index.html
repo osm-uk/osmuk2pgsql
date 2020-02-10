@@ -19,7 +19,7 @@
 var map = new mapboxgl.Map({
     'container': 'map',
     'zoom': 12,
-    'center': [0.0, 52.1],
+    'center': [-1.6, 54.7],
     'style': {
         'version': 8,
         'sources': {
@@ -38,7 +38,6 @@ var map = new mapboxgl.Map({
                     "http://localhost:8080/{z}/{x}/{y}.mvt"
                 ]
             }
-
         },
         'layers': [{
             'id': 'carto-dark-layer',
@@ -47,17 +46,26 @@ var map = new mapboxgl.Map({
             'minzoom': 0,
             'maxzoom': 22
         },{
-            'id': 'postgis-tiles-layer',
+            'id': 'postgis-tiles-layer-1',
             'type': 'line',
             'source': 'postgis-tiles',
-            // ST_AsMVT() uses 'default' as layer name
-            'source-layer': 'default', 
+            'source-layer': 'roads', 
             'minzoom': 0,
             'maxzoom': 22,
             'paint': {
                 'line-opacity': 0.7,
                 'line-color': 'red',
                 'line-width': 1
+            }
+        },{
+            'id': 'postgis-tiles-layer-2',
+            'type': 'circle',
+            'source': 'postgis-tiles',
+            'source-layer': 'food-outlets', 
+            'minzoom': 0,
+            'maxzoom': 22,
+            'paint': {
+                'circle-color': 'yellow'
             }
         }]
     }

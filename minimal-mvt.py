@@ -12,6 +12,7 @@ DATABASE = {
 
 # Table to query
 ADMIN_BOUNDARIES = {
+    'layerName':   'admin-boundaries',
     'table':       'planet_osm_roads',
     'srid':        '3857',
     'geomColumn':  'way',
@@ -20,6 +21,7 @@ ADMIN_BOUNDARIES = {
     }
 
 ROADS = {
+    'layerName':   'roads',
     'table':       'planet_osm_roads',
     'srid':        '3857',
     'geomColumn':  'way',
@@ -27,12 +29,13 @@ ROADS = {
     'conditions':  ""
     }
 
-STATIONS = {
+FOOD_OUTLETS = {
+    'layerName':   'food-outlets',
     'table':       'planet_osm_point',
     'srid':        '3857',
     'geomColumn':  'way',
-    'attrColumns': 'osm_id, name, railway',
-    'conditions':  'AND railway=\'station\''
+    'attrColumns': 'osm_id, name',
+    'conditions':  "AND amenity in ('restaurant', 'fast_food')"
     }
 
 TABLE = ROADS
@@ -131,7 +134,7 @@ class TileRequestHandler(http.server.BaseHTTPRequestHandler):
                 )
                 {conditions}
             )
-            SELECT ST_AsMVT(mvtgeom.*) FROM mvtgeom
+            SELECT ST_AsMVT(mvtgeom.*, '{layerName}') FROM mvtgeom
         """
         return sql_tmpl.format(**tbl)
 
