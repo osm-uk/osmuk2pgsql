@@ -2,23 +2,40 @@ import http.server
 import re
 import psycopg2
 
-# Database to connect to
 DATABASE = {
-    'user':     'jeznicholson',
-    'password': '',
+    'user':     'osmuk_user',
+    'password': 'osmuk',
     'host':     'localhost',
     'port':     '5432',
-    'database': 'osmgb'
+    'database': 'osm-durham'
     }
 
 # Table to query
-TABLE = {
+ADMIN_BOUNDARIES = {
     'table':       'planet_osm_roads',
     'srid':        '3857',
     'geomColumn':  'way',
     'attrColumns': 'osm_id, name, highway',
     'conditions':  'AND admin_level>\'2\''
     }
+
+ROADS = {
+    'table':       'planet_osm_roads',
+    'srid':        '3857',
+    'geomColumn':  'way',
+    'attrColumns': 'osm_id, name, highway',
+    'conditions':  ""
+    }
+
+STATIONS = {
+    'table':       'planet_osm_point',
+    'srid':        '3857',
+    'geomColumn':  'way',
+    'attrColumns': 'osm_id, name, railway',
+    'conditions':  'AND railway=\'station\''
+    }
+
+TABLE = ROADS
 
 # HTTP server information
 HOST = 'localhost'

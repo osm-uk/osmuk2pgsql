@@ -1,4 +1,5 @@
 
 *.osm.pbf
+*.osm.pbf.*
 master.zip
 openstreetmap-carto-master
