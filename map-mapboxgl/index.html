@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset='utf-8' />
-    <title>Mapbox GL JS Examples</title>
+    <title>OSMUK-in-a-Box Mapbox GL</title>
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.1.0/mapbox-gl.css' rel='stylesheet' />
@@ -10,16 +10,19 @@
         body { margin:0; padding:0; }
         #map { position:absolute; top:0; bottom:0; width:100%; }
     </style>
+    <link href='switcher.css' rel='stylesheet' />
 </head>
 <body>
 
-<div id='map'></div>
-<script>
+<nav id="menu"></nav>
+<div id="map"></div>
 
+<script>
+mapboxgl.accessToken = ''; // obtain and set if using Mapbox styles or data
 var map = new mapboxgl.Map({
     'container': 'map',
-    'zoom': 12,
-    'center': [-1.6, 54.7],
+    'zoom': 9,
+    'center': [-0.64, 52.64],
     'style': {
         'version': 8,
         'sources': {
@@ -32,24 +35,75 @@ var map = new mapboxgl.Map({
                     "http://d.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png"
                 ]
             },
-            'postgis-tiles': {
+            'boundaries': {
                 'type': 'vector',
                 'tiles': [
-                    "http://localhost:8080/{z}/{x}/{y}.mvt"
+                    "http://localhost:8080/boundaries/{z}/{x}/{y}.mvt"
+                ]
+            },
+            'roads': {
+                'type': 'vector',
+                'tiles': [
+                    "http://localhost:8080/roads/{z}/{x}/{y}.mvt"
+                ]
+            },
+            'food': {
+                'type': 'vector',
+                'tiles': [
+                    "http://localhost:8080/food/{z}/{x}/{y}.mvt"
                 ]
             }
         },
         'layers': [{
-            'id': 'carto-dark-layer',
+            'id': 'basemap',
             'type': 'raster',
             'source': 'carto-dark',
             'minzoom': 0,
             'maxzoom': 22
         },{
-            'id': 'postgis-tiles-layer-1',
+            'id': 'boundaries',
             'type': 'line',
-            'source': 'postgis-tiles',
-            'source-layer': 'roads', 
+            'source': 'boundaries',
+            'source-layer': 'default',
+            'layout': {
+                'visibility': 'visible'
+            },
+            'minzoom': 0,
+            'maxzoom': 22,
+            'paint': {
+                'line-opacity': 0.7,
+                // see https://wiki.openstreetmap.org/wiki/Key:admin_level
+                // https://wiki.openstreetmap.org/wiki/Tag:boundary%3Dadministrative#10_admin_level_values_for_specific_countries
+                'line-color': [
+                    'match',
+                    ['get', 'admin_level'],
+                    '1', '#fbb03b', // teh World
+                    '2', '#fbb03b',
+                    '3', '#fbb03b', // not used in UK
+                    '4', '#fbb03b', // England, Scotland, Wales and Northern Ireland
+                    '5', '#fbb03b', // Regions of England
+                    '6', '#223b53', // England: metropolitan counties, non-metropolitan counties, 
+                                    //          unitary authorities, City of London, Isles of Scilly
+                                    // Scotland: council areas
+                                    // Wales: principal areas/awdurdodau unedol
+                    '7', '#223b53', // not used in UK
+                    '8', '#e55e5e', //England only: districts, consisting of metropolitan boroughs, London boroughs, non-metropolitan districts
+                    '9', '#e55e5e', // not used in UK
+                    '10', '#3bb2d0', // England: civil parishes
+                                    // Scotland: community councils
+                                    // Wales: communities/cymunedau
+                    '#ccc'          /* no-match == error */
+                    ],
+                'line-width': 1
+            }
+        },{
+            'id': 'roads',
+            'type': 'line',
+            'source': 'roads',
+            'source-layer': 'default', 
+            'layout': {
+                'visibility': 'visible'
+            },
             'minzoom': 0,
             'maxzoom': 22,
             'paint': {
@@ -58,10 +112,13 @@ var map = new mapboxgl.Map({
                 'line-width': 1
             }
         },{
-            'id': 'postgis-tiles-layer-2',
+            'id': 'food',
             'type': 'circle',
-            'source': 'postgis-tiles',
-            'source-layer': 'food-outlets', 
+            'source': 'food',
+            'source-layer': 'default', 
+            'layout': {
+                'visibility': 'visible'
+            },
             'minzoom': 0,
             'maxzoom': 22,
             'paint': {
@@ -71,8 +128,37 @@ var map = new mapboxgl.Map({
     }
 });
 
-
 map.addControl(new mapboxgl.NavigationControl());
+
+var toggleableLayerIds = ['boundaries', 'roads', 'food'];
+ 
+for (var i = 0; i < toggleableLayerIds.length; i++) {
+    var id = toggleableLayerIds[i];
+    
+    var link = document.createElement('a');
+    link.href = '#';
+    link.className = 'active';
+    link.textContent = id;
+    
+    link.onclick = function(e) {
+        var clickedLayer = this.textContent;
+        e.preventDefault();
+        e.stopPropagation();
+        
+        var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+        
+        if (visibility === 'visible') {
+            map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+            this.className = '';
+        } else {
+            this.className = 'active';
+            map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+        }
+    };
+    
+    var layers = document.getElementById('menu');
+    layers.appendChild(link);
+}
 </script>
 
 </body>

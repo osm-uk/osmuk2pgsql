@@ -84,3 +84,8 @@ python3 minimal-mvt.py
 ```
 
 ![Screenshot of Mapbox GL Example](mapbox-gl.png){:height="50%" width="50%"}
+
+## Running
+./build.sh
+
+![Choose a Geofabrik extract](choose-an-extract.png)
