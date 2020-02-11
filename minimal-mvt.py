@@ -22,7 +22,7 @@ BOUNDARIES = {
 ROADS = {
     'select':     'osm_id, name, highway',
     'from':       'planet_osm_roads',
-    'where':      "admin_level = ''",
+    'where':      "highway is not null",
     'geomColumn': 'way',
     'srid':       '3857'
     }

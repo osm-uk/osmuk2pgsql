@@ -88,4 +88,4 @@ python3 minimal-mvt.py
 ## Running
 ./build.sh
 
-![Choose a Geofabrik extract](choose-an-extract.png)
+![Choose a Geofabrik extract](choose-an-extract.png){:height="50%" width="50%"}
