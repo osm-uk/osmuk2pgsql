@@ -31,7 +31,20 @@ A minimal vector tile server and example Mapbox GL map.
 
 The first version is a bash shell script. As a prerequisite it requires postgresl, postgis, hstore, osm2pgsql, wget and unzip to be installed. The script could install stuff for you but it gets complicated coping with Linux, Windows, Mac OS X, etc.
 
-Second version will most likely use Docker.
+### Docker
+For an introduction you can read https://alexurquhart.com/post/set-up-postgis-with-docker/
+
+Specifically, we will be running https://hub.docker.com/r/kartoza/postgis which has postgres, postgis, and gdal pre-installed.
+
+kartoza/postgis:12.0 provides PostgreSQL 12.0, PostGIS 3.0
+
+```sh
+docker volume create pg_data
+docker run --name=osmuk_in_a_box -d -e POSTGRES_USER=osmuk_user -e POSTGRES_PASS=osmuk -e POSTGRES_DBNAME=gis -e ALLOW_IP_RANGE=0.0.0.0/0 -p 25432:5432 -v pg_data:/var/lib/postgresql --restart=always kartoza/postgis:12.0
+docker cp build.sh osmuk_in_a_box:/build.sh
+
+bin/bash buils.sh
+```
 
 ## alternatives
 Explore OSM data quickly using country-specific Taginfo pages from Geofabrik:
