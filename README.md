@@ -43,7 +43,7 @@ docker volume create pg_data
 docker run --name=osmuk_in_a_box -d -e POSTGRES_USER=osmuk_user -e POSTGRES_PASS=osmuk -e POSTGRES_DBNAME=gis -e ALLOW_IP_RANGE=0.0.0.0/0 -p 25432:5432 -v pg_data:/var/lib/postgresql --restart=always kartoza/postgis:12.0
 docker cp build.sh osmuk_in_a_box:/build.sh
 
-bin/bash buils.sh
+bin/bash build.sh
 ```
 
 ## alternatives
