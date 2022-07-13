@@ -220,7 +220,7 @@ done
 DBNAME="osm-${AREA}"
 
 psql -c "create role osmuk_user LOGIN PASSWORD 'osmuk';"
-createdb $DBNAME -O osmuk_user
+createdb -O osmuk_user $DBNAME
 psql -d $DBNAME -c "create extension if not exists postgis;"
 psql -d $DBNAME -c "create extension if not exists hstore;"
 
